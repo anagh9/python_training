@@ -1,0 +1,6 @@
+## Branching from another branch
+git checkout -b django_basics development
+
+
+## Delete a branch with 
+git branch -d <branch>.t
