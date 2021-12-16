@@ -4,3 +4,15 @@ git checkout -b django_basics development
 
 ## Delete a branch with 
 git branch -d <branch>.t
+
+
+## Creating a Orphan Branch
+git checkout --orphan mybranch
+
+## Deleting Everything
+git rm -rf .
+git rm --cached -r
+
+## Switch to Orphan Branch
+git switch --orphan <new-branch>
+git checkout --orphan <branch name>
