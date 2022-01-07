@@ -1,0 +1,16 @@
+{% extends 'polls/base.html' %}
+{% block title %} detail  {% endblock %}
+
+{% block content %}
+    <div class="card mt-5 p-5">
+        <h1 class="my-5">{{ question.question_text }}</h1>
+
+        <ul class="list-group">
+        {% for choice in question.choice_set.all %}
+            <li class="list-group-item list-group-item-action list-group-item-info">Option ({{ choice.choice_text }}) got  {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        {% endfor %}
+        </ul>
+
+        <a class="btn btn-primary mt-5 d-inline" href="{% url 'polls_app:detail' question.id %}">Vote again?</a>
+    </div>
+{% endblock %}

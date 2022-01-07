@@ -1,0 +1,28 @@
+{% extends 'polls/base.html' %}
+{% block title %} detail  {% endblock %}
+
+{% block content %}
+<div class="details mt-5">
+    {% comment %} <h3>{{ question.question_text }}</h3>
+    <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}</li>
+        {% endfor %}
+    </ul> {% endcomment %}
+
+    <form action="{% url 'polls_app:vote' question.id %}" method="post">
+        {% csrf_token %}
+        <div class="card p-5">
+                <h5>{{ question.question_text }}</h5>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                {% for choice in question.choice_set.all %}
+                    <div>
+                        <input class="form-check-input" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <label class="form-check-label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                    </div>
+                {% endfor %}
+            <input class="btn btn-primary mt-3" type="submit" value="Vote">
+        </div>
+    </form>
+</div>
+{% endblock %}

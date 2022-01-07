@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/', include('first_app.urls'))
-]
+    path('mapp/', include('modellll.urls')),
+    path('app/', include('first_app.urls')),
+    path('form/', include('formOnly.urls')),
+    path('doubt/', include('doubtOnly.urls')),
+    path('polls/', include('polls_app.urls'))
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

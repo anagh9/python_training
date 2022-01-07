@@ -1,0 +1,82 @@
+Q> When To use middleware ?
+
+- Filtering Requests
+- Injecting Data into Requests/Response
+- Performing Logging / Page Analytics 
+
+Q> Types of middleware?
+
+- Function Based middleware -> Takes a get_response callable and returns a middleware. A middleware is a callable that rakes a request and returns a response ,just like view.
+
+def my_middleware(get_response):
+    # One-time configuration and initialization.
+    def my_function(request):
+        # Code to be executed for each request before the view are called.
+        response = get_response(request)
+        # Code to be executed for each request/response after the view is called. 
+        return response
+    return my_function
+    
+
+
+
+- Class Based middleware
+
+
+user -> middleware -> server
+user <- middleware <- server
+
+get_response() - The get_response callable provided by Django might be the actual view (if this is the last listed middleware) or it might be the next middleware ) it might be the next middleware int the chain. 
+
+## Steps to write middleware
+To activate a middleware component ,add it to bhe MIDDLEWARE list in your Django settings. 
+
+- Write Full path in settings.py MIDDLEWARE block.
+
+MIDDLEWARE = [
+    .....
+    .....
+    'appname.file_name_of_middleware.function_name'
+]
+
+#Example of middleware.
+
+- middlewares.py
+
+def my_middleware(get_response):
+
+    print("One Time initialization.")
+   
+   
+    def my_function(request):
+        print("This is before view")
+        
+        response = get_response(request)
+        
+        print("This is after view")
+        return response 
+    
+    return my_function
+
+## CLASS BASED MIDDLEWARE 
+
+class MyMiddleware:
+
+    def __init__(self,get_response):
+        self.get_response = get_response
+        # One time configuration and initialization 
+    
+    def __call__(self,request):
+        # Code to be executed for each request before the view (and later middlware) are called. 
+
+        response = self.get_response(request)
+    
+        # Code to be executed for each request/response after the view is called. 
+
+        return response
+
+
+Activating class middleware same as function middleware.
+
+blog.middlewares.MyMiddleware
+app_name.file_name.className

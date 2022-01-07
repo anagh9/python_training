@@ -8,7 +8,6 @@ class FirstAppModel(models.Model):
     description = models.TextField()
     last_modified = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(upload_to="images/")
-    int_field = models.ImageField()
 
     def __str__(self):
         return self.title
