@@ -86,3 +86,56 @@ Shorthand instead of HttpResponse
 
 return JsonResponse(serializer.data,safe = False)
 """
+
+# Steps For Get Request
+
+"""
+- djangoadmin startproject
+- python manage.py startapp nameofapp
+- pip install djangorestframework
+- In setting.py Installed_APPS = [
+    '....',
+    'my_app',
+    'rest_framework',
+]
+
+- Create Models In Model.py
+- Register Model in Admin
+- Create SuperUser
+- create serializers.py
+ex-: 
+from rest_framework import serializers
+class StudentSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=52)
+    branch = serializers.CharField(max_length=20)
+    is_active = serializers.BooleanField()
+
+- In Views Import .serializers and .models
+- For Getting all list
+def index(request):
+    stu = Student.objects.all()
+    serializer = StudentSerializer(stu, many=True)
+    print(serializer.data)
+    json_data = JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data, content_type='application/json')
+
+- For SingleObjects 
+def singleindex(request,pk):
+    stu = Student.objects.get(id=pk)
+    serializer = StudentSerializer(stu)
+    print(serializer.data)
+    json_data = JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data, content_type='application/json')
+
+- Add urlpattern in myproject.urls
+from django.contrib import admin
+from django.urls import path
+from drf_app import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', views.index),
+    path('api/<int:pk>/', views.singleindex),
+]
+
+"""
