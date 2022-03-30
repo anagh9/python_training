@@ -1,0 +1,155 @@
+* type(anything)
+* x = None 
+# <type 'int'>
+# <type 'str'>
+# <type 'float'>
+# <type 'NoneType'>
+
+* a,b,c = 1,2,3
+# print(a,b,c) # 1 2 3
+# print(a,end="") # No new Line
+
+* x or y # if x is false then y otherwise x
+* x and y # if x is false then x otherwise y
+* not x # if x is true then false, otherwise false
+
+* bool type is a subclass of int type
+
+issubclass(bool,int) # True
+isinstance(True,bool) #True
+isinstance(False,bool) #True
+
+True + False == 1 # 1 + 0 == 1
+True * True == 1 # 1 * 1 == 1
+
+* reversed: A reversed order of str with reversed function
+
+a = reversed('hello') # 
+
+* Finding docstrings
+def func():
+  """Comment of this function"""
+  return
+print(func.__doc__)
+
+
+* Enum
+# pip install enum34
+from enum import Enum
+class Color(Enum):
+  red = 1
+  green = 2
+  blue = 3
+print(Color.red) # Color.red
+
+class Color(Enum):
+red = 1
+green = 2
+blue = 3
+[c for c in Color] # [<Color.red: 1>, <Color.green: 2>, <Color.blue: 3>]
+
+** SET
+
+# Intersection
+{1, 2, 3, 4, 5}.intersection({3, 4, 5, 6}) # {3, 4, 5}
+{1, 2, 3, 4, 5} & {3, 4, 5, 6} # {3, 4, 5}
+
+# Union
+{1, 2, 3, 4, 5}.union({3, 4, 5, 6}) # {1, 2, 3, 4, 5, 6}
+{1, 2, 3, 4, 5} | {3, 4, 5, 6} # {1, 2, 3, 4, 5, 6}
+
+# Difference
+{1, 2, 3, 4}.difference({2, 3, 5}) # {1, 4}
+{1, 2, 3, 4} - {2, 3, 5} # {1, 4}
+
+# Symmetric difference with
+{1, 2, 3, 4}.symmetric_difference({2, 3, 5}) # {1, 4, 5}
+{1, 2, 3, 4} ^ {2, 3, 5} # {1, 4, 5}
+
+# Superset check
+{1, 2}.issuperset({1, 2, 3}) # False
+{1, 2} >= {1, 2, 3} # False
+
+# Subset check
+{1, 2}.issubset({1, 2, 3}) # True
+{1, 2} <= {1, 2, 3} # True
+
+# Disjoint check
+{1, 2}.isdisjoint({3, 4}) # True
+{1, 2}.isdisjoint({1, 4}) # False
+
+# with single elements
+
+# Existence check
+2 in {1,2,3} # True
+4 in {1,2,3} # False
+4 not in {1,2,3} # True
+
+# Add and Remove
+s = {1,2,3}
+s.add(4) # s == {1,2,3,4}
+s.discard(3) # s == {1,2,4}
+s.discard(5) # s == {1,2,4}
+s.remove(2) # s == {1,4}
+s.remove(2) # KeyError!
+
+# s = {1, 2}
+s.update({3, 4}) # s == {1, 2, 3, 4}
+
+# Get the unique element of a list
+
+restaurants = ["McDonald's", "Burger King", "McDonald's", "Chicken Chicken"]
+unique_restaurants = set(restaurants)
+print(unique_restaurants)
+# prints {'Chicken Chicken', "McDonald's", 'Burger King'}
+
+NOTE: {1} creates a set of one element, but {} creates an empty dict. The correct way to create an
+empty set is set().
+
+a, b = 2, 3
+(a ** b) # = 8
+pow(a, b) # = 8
+import math
+math.pow(a, b) # = 8.0 (always float; does not allow complex results)
+import operator
+operator.pow(a, b) # = 8
+
+# ShortHand of If Else
+"Greater than 2" if n > 2 else "Smaller than or equal to 2"
+
+# Loop
+for i in (0, 1, 2, 3, 4):
+for i in range(start,stop):
+for i in range(start,stop,steps):
+for i in [0, 1, 2, 3, 4]:
+for i in range(5):
+
+for index, item in enumerate(['one', 'two', 'three', 'four']):
+  print(index, '::', item)
+
+# (0, '::', 'one')
+# (1, '::', 'two')
+# (2, '::', 'three')
+# (3, '::', 'four')
+
+# Iterate over a list with value manipulation using map and lambda, i.e. apply lambda function on each element in the list:
+
+x = map(lambda e : e.upper(), ['one', 'two', 'three', 'four'])
+
+print(x)
+# ['ONE', 'TWO', 'THREE', 'FOUR']
+
+
+# Iterating over dictionaries
+
+d = {"a": 1, "b": 2, "c": 3}
+for key in d:
+  print(key) # "a" "b" "c"
+
+# This is equivalent to:
+for key in d.keys():
+  print(key)
+
+# Iterating through Keys and Values
+for key, value in d.items():
+  print(key, "::", value)

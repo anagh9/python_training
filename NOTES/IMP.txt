@@ -1,0 +1,37 @@
+pip install -U flask-sqlalchemy marshmallow-sqlalchemy
+
+# Redis setup
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
+
+> redis-cli
+> request.get("data")
+> request.args.get('args_data')
+
+## Redis Setup in Flask
+
+# .env
+CACHE_TYPE=redis
+CACHE_REDIS_HOST=redis
+CACHE_REDIS_PORT=6379
+CACHE_REDIS_DB=0
+CACHE_REDIS_URL=redis://redis:6379/0
+CACHE_DEFAULT_TIMEOUT=500
+
+# app.py
+import requests
+from flask import Flask, jsonify, request
+from flask_caching import Cache  # Import Cache from flask_caching module
+
+app = Flask(__name__)
+app.config.from_object('config.Config')  # Set the configuration variables to the flask application
+cache = Cache(app)  # Initialize Cache
+
+
+@app.route("/universities")
+@cache.cached(timeout=30, query_string=True)
+def get_universities():
+    API_URL = "http://universities.hipolabs.com/search?country="
+    search = request.args.get('country')
+    r = requests.get(f"{API_URL}{search}")
+    return jsonify(r.json())
+

@@ -1,0 +1,115 @@
+py -m pip install --user virtualenv
+py -m venv env
+.\env\Scripts\activate
+
+> New Directory
+activate nameof enviroment
+django-admin startproject first_project
+
+python manage.py runserver
+
+> Create new app in project
+python manage.py startapp first_app
+
+> First Step
+> Add in projects/settings.py Installed_apps
+
+> 'first_app'
+
+
+> Second Step
+> Add in projects/urls.py urlpatterns
+url(r'^$',views.index,name='index')
+
+-------------------------------------------
+> Mapping Urls
+> add to project's urls.py
+from django.conf.urls import include
+urlpatterns = [ ...
+ url(r'^first_app/',include('first_app.urls')),
+...
+]
+
+-------------------------------------------
+Templates
+> create template directory in project folder then in template first_app
+first_project/templates/first_app
+
+> 2nd step to let know django by editing the dir key inside of the templates directory in the settings.py file.
+
+> for resolving issue we import os module
+> Just below base_dir write
+
+TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+
+> Then scrll down and in templates [{}]
+In 'DIRS' : [TEMPLATE_DIR,],
+
+> Inside template/first_app/index.html
+
+> In first_app/views.py
+> Passing data from django
+def index(request):
+  my_dict = {'insert_me':"Hello I am from views.py !"}
+  return render(request,'first_app/index.html'context=my_dict)
+
+---------------------------------------------------------------------------------------
+> Creating Models
+In first_app/models.py
+
+class Topic(models.Model):
+  top_name = models.CharField(max_length=264,unique = True)
+
+class Webpage(models.Model):
+  category = models.ForeignKey(Topic)
+  name = models.CharField(max_length=264)
+  url = models.URLField()
+
+  def __str__(self):
+     return self.name
+
+> Django can do this entire process with a simple command
+
+>> python manage.py migrate
+
+> Then register the changes to your app shown here with some generic "app1":
+>> python manage.py makemigrations app1
+>> python manage.py migrate
+
+To Play Around with the models
+>> from django.contrib import admin 
+from app.models import Models1,Models2
+
+admin.site.register(Model1)
+admin.site.register(Model2)
+
+----------------------------------------
+> Creating superUser for admin
+>> python manage.py createsuperuser
+-----------------------------------------
+> Creating Models
+Inserting data using shell
+>> python manage.py shell
+>> from first_app.models import Topic
+>> print(Topic.objects.all())
+>> t = Topic(top_name="Social network")
+>> t.save()
+>> print(Topic.objects.all())
+
+//----------------------------------------
+> Making Admin Interface for the selected Models
+
+In first_app/admin.py
+
+from first_app.models import AccessRecord,Topic,Webpage
+
+admin.site.register(AccessRecord)
+admin.site.register(Topic)
+admin.site.register(Webpage)
+
+--------------------------------------
+linking static file in index.html 
+--------------------------------------
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static "css/mystyle"}"/>	

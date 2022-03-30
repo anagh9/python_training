@@ -1,0 +1,10 @@
+> mysql -u yourUsername -p After pressing enter key
+> mysql -p
+> mysql -u root -p
+
+CREATE USER 'yourUserName'@'localhost' IDENTIFIED BY 'yourPassword';
+mysql> CREATE USER 'John'@'localhost' IDENTIFIED BY 'john123456';
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'John'@'localhost';
+
+
+
